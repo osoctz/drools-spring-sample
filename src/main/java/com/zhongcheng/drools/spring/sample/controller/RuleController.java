@@ -18,7 +18,7 @@ public class RuleController {
     private RuleEngineService ruleEngineService;
 
     @RequestMapping("/param")
-    public void param() {
+    public RuleResult param() {
         QueryParam queryParam1 = new QueryParam();
         queryParam1.setParamId("1");
         queryParam1.setParamSign("+");
@@ -33,5 +33,6 @@ public class RuleController {
         RuleResult resultParam = new RuleResult();
         kieSession.insert(resultParam);
         kieSession.fireAllRules();
+        return resultParam;
     }
 }

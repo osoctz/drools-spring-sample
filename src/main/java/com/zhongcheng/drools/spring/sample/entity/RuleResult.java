@@ -14,4 +14,5 @@ import lombok.Setter;
 @Getter
 public class RuleResult {
     private boolean postCodeResult = false ;
+    private String msg;
 }

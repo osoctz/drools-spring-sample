@@ -1,0 +1,13 @@
+package droolRule ;
+
+import java.util.Map;
+import com.zjxk.biz.impl.BillBizImpl
+
+dialect  "java"
+rule "适用规则,定位合同文本位置，左边=合同签订日期，右边=单据实际结算日期"
+    salience 99
+    when
+        invoice: Map("单据编号" memberOf this.keySet())
+    then
+      BillBizImpl billBiz =new BillBizImpl();
+      boolean isExists=billBiz.exists(invoice.get(单据编号));

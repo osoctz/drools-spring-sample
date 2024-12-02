@@ -1,0 +1,21 @@
+package droolRule ;
+
+import java.util.Map;
+import com.zhongcheng.drools.spring.sample.entity.RuleResult;
+
+dialect  "java"
+rule "Check Invoice Against Contract4"
+    salience 96
+    when invoice: Map("invoiceNumber" memberOf this.keySet())
+        contract: Map(this.containsKey("contractCode"))
+        re: RuleResult(msg != null &&msg.equals("适用"))
+    then
+        double accumulatedSettlementAmount = (double) invoice.get("accumulatedSettlementAmount");
+        double changedTotalAmountWithTax = (double) contract.get("changedTotalAmountWithTax");
+        double totalAmountWithTax = (double) contract.get("totalAmountWithTax");
+
+        String result = (accumulatedSettlementAmount <= (changedTotalAmountWithTax > 0 ? changedTotalAmountWithTax : totalAmountWithTax)) ? "通过3" : "不通过3";
+
+        System.out.println("Result 96: " + result);
+        re.setMsg(result);
+end
